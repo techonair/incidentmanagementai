@@ -1,4 +1,4 @@
-# PurpleLens — AI Incident & Operations Platform
+# MonkLens — AI Incident & Operations Platform
 ## Engineering Plan (for AI coding agent)
 
 ## Mission

@@ -24,7 +24,7 @@ async def lifespan(app: FastAPI):
 
 
 def create_app() -> FastAPI:
-    app = FastAPI(title="PurpleLens API", lifespan=lifespan)
+    app = FastAPI(title="MonkLens API", lifespan=lifespan)
     app.add_middleware(
         CORSMiddleware,
         allow_origins=[settings.frontend_origin, "http://localhost:3000"],

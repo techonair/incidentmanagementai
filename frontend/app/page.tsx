@@ -23,7 +23,7 @@ function Login({ onDone }: { onDone: () => void }) {
   return (
     <main className="grid min-h-screen place-items-center bg-[#eef2f6] p-4">
       <form onSubmit={submit} className="panel w-full max-w-sm p-5">
-        <div className="mb-5 flex items-center gap-2 text-xl font-bold"><Flame className="h-5 w-5 text-accent" /> PurpleLens</div>
+        <div className="mb-5 flex items-center gap-2 text-xl font-bold"><Flame className="h-5 w-5 text-accent" /> MonkLens</div>
         <label className="mb-3 block text-sm font-semibold">Email<input className="input mt-1" value={email} onChange={(e) => setEmail(e.target.value)} /></label>
         <label className="mb-4 block text-sm font-semibold">Password<input className="input mt-1" type="password" value={password} onChange={(e) => setPassword(e.target.value)} /></label>
         {error && <p className="mb-3 text-sm text-danger">{error}</p>}

@@ -1,4 +1,4 @@
-# PurpleLens
+# MonkLens
 
 AI-assisted incident operations platform built as one working vertical slice:
 Next.js, FastAPI, MongoDB, Redis, WebSockets, ARQ worker, dashboard cache, and deterministic AI investigation.

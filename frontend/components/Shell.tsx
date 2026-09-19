@@ -23,7 +23,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
     <div className="min-h-screen lg:flex">
       <aside className="border-b border-line bg-ink text-white lg:min-h-screen lg:w-64 lg:border-b-0 lg:border-r">
         <div className="flex h-16 items-center gap-2 px-5 text-lg font-bold">
-          <Activity className="h-5 w-5 text-[#8fd6b5]" /> PurpleLens
+          <Activity className="h-5 w-5 text-[#8fd6b5]" /> MonkLens
         </div>
         <nav className="flex gap-1 overflow-x-auto px-3 pb-3 lg:block">
           {nav.map((item) => {
