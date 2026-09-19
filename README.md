@@ -105,10 +105,6 @@ curl -b cookies.txt http://localhost:8000/dashboard/overview
 
 To test Redis fallback, stop Redis after the app is running. Core pages should still serve from MongoDB; cache and queue-backed work will degrade.
 
-## Hackathon Assignment Review
-
-The assignment PDF is the source of truth for this review. MonkLens implements the required working vertical slice, but it is not production-complete. The table below records the decisions made and the remaining gaps honestly.
-
 ### Architecture Decisions
 
 - **Frontend:** Next.js 14 App Router, TypeScript, Tailwind, Recharts, and a small Zustand-ready client structure.
