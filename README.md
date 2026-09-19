@@ -13,7 +13,7 @@ docker compose up --build
 Open `http://localhost:3000` and log in with:
 
 ```text
-admin@purplelens.dev
+admin@monklens.dev
 admin123
 ```
 
@@ -60,7 +60,7 @@ You can also post an alert:
 
 ```bash
 curl -i -c cookies.txt -H "Content-Type: application/json" \
-  -d "{\"email\":\"admin@purplelens.dev\",\"password\":\"admin123\"}" \
+   -d "{\"email\":\"admin@monklens.dev\",\"password\":\"admin123\"}" \
   http://localhost:8000/auth/login
 
 curl -b cookies.txt -H "Content-Type: application/json" \

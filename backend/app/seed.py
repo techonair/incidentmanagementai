@@ -10,6 +10,11 @@ SEVERITIES = ["sev1", "sev2", "sev3", "sev4"]
 
 
 async def seed_database(database) -> None:
+    await database.users.update_many(
+        {"email": {"$regex": "@purplelens\\.dev$"}},
+        [{"$set": {"email": {"$replaceOne": {"input": "$email", "find": "@purplelens.dev", "replacement": "@monklens.dev"}}}}],
+    )
+    await database.users.update_one({"name": "Purple Admin"}, {"$set": {"name": "Monk Admin"}})
     if await database.users.count_documents({}):
         return
     seed(42)
@@ -24,8 +29,8 @@ async def seed_database(database) -> None:
     team_result = await database.teams.insert_many(teams)
     team_ids = team_result.inserted_ids
     users = [{
-        "name": "Purple Admin",
-        "email": "admin@purplelens.dev",
+        "name": "Monk Admin",
+        "email": "admin@monklens.dev",
         "role": "admin",
         "team_id": team_ids[0],
         "password_hash": hash_password("admin123"),
@@ -33,7 +38,7 @@ async def seed_database(database) -> None:
     for i in range(1, 10):
         users.append({
             "name": f"Operator {i}",
-            "email": f"operator{i}@purplelens.dev",
+            "email": f"operator{i}@monklens.dev",
             "role": "operator",
             "team_id": choice(team_ids),
             "password_hash": hash_password("operator123"),

@@ -7,7 +7,7 @@ import { api } from "@/lib/api";
 import { Shell } from "@/components/Shell";
 
 function Login({ onDone }: { onDone: () => void }) {
-  const [email, setEmail] = useState("admin@purplelens.dev");
+  const [email, setEmail] = useState("admin@monklens.dev");
   const [password, setPassword] = useState("admin123");
   const [error, setError] = useState("");
   async function submit(e: React.FormEvent) {

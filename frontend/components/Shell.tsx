@@ -39,7 +39,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
       </aside>
       <main className="min-w-0 flex-1">
         <header className="flex h-16 items-center justify-between border-b border-line bg-white px-5">
-          <div className="text-sm font-semibold text-slate-600">admin@purplelens.dev</div>
+          <div className="text-sm font-semibold text-slate-600">admin@monklens.dev</div>
           <button className="btn" onClick={logout} title="Log out"><LogOut className="h-4 w-4" /> Logout</button>
         </header>
         <div className="p-4 lg:p-6">{children}</div>
