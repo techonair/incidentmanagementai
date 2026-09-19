@@ -13,6 +13,10 @@ export default function IncidentsPage() {
   const [q, setQ] = useState("");
   const [view, setView] = useState<"list" | "board">("board");
   const [severity, setSeverity] = useState("");
+  const [showNew, setShowNew] = useState(false);
+  const [newIncident, setNewIncident] = useState({ title: "", service: "", summary: "", severity: "sev3" });
+  const [creating, setCreating] = useState(false);
+  const [error, setError] = useState("");
   async function load() {
     const params = new URLSearchParams({ limit: "50" });
     if (q) params.set("q", q);
@@ -26,13 +30,40 @@ export default function IncidentsPage() {
     ws.onmessage = () => load();
     return () => ws.close();
   }, []);
+  async function createIncident(e: React.FormEvent) {
+    e.preventDefault();
+    setCreating(true);
+    setError("");
+    try {
+      const created = await api<Incident>("/incidents", { method: "POST", body: JSON.stringify(newIncident) });
+      setShowNew(false);
+      setNewIncident({ title: "", service: "", summary: "", severity: "sev3" });
+      await load();
+      window.location.href = `/incidents/${created._id}`;
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Unable to create incident");
+    } finally {
+      setCreating(false);
+    }
+  }
   const columns = useMemo(() => statuses.map((status) => ({ status, items: items.filter((item) => item.status === status) })), [items]);
   return (
     <Shell>
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
         <h1 className="text-2xl font-bold">Incidents</h1>
-        <button className="btn btn-primary"><Plus className="h-4 w-4" /> New</button>
+        <button className="btn btn-primary" onClick={() => { setError(""); setShowNew(true); }}><Plus className="h-4 w-4" /> New</button>
       </div>
+      {showNew && <div className="fixed inset-0 z-20 grid place-items-center bg-ink/40 p-4" role="presentation" onMouseDown={(e) => e.target === e.currentTarget && setShowNew(false)}>
+        <form className="panel w-full max-w-lg p-5" onSubmit={createIncident}>
+          <div className="mb-4 flex items-center justify-between"><h2 className="text-lg font-bold">Create incident</h2><button type="button" className="btn" onClick={() => setShowNew(false)}>Cancel</button></div>
+          <label className="mb-3 block text-sm font-semibold">Title<input className="input mt-1" required value={newIncident.title} onChange={(e) => setNewIncident({ ...newIncident, title: e.target.value })} /></label>
+          <label className="mb-3 block text-sm font-semibold">Service<input className="input mt-1" required placeholder="payments-api" value={newIncident.service} onChange={(e) => setNewIncident({ ...newIncident, service: e.target.value })} /></label>
+          <label className="mb-3 block text-sm font-semibold">Severity<select className="input mt-1" value={newIncident.severity} onChange={(e) => setNewIncident({ ...newIncident, severity: e.target.value })}><option>sev1</option><option>sev2</option><option>sev3</option><option>sev4</option></select></label>
+          <label className="mb-4 block text-sm font-semibold">Summary<textarea className="input mt-1 min-h-24" value={newIncident.summary} onChange={(e) => setNewIncident({ ...newIncident, summary: e.target.value })} /></label>
+          {error && <p className="mb-3 text-sm text-danger">{error}</p>}
+          <button className="btn btn-primary w-full justify-center" disabled={creating}>{creating ? "Creating..." : "Create incident"}</button>
+        </form>
+      </div>}
       <div className="panel mb-4 flex flex-wrap items-center gap-2 p-3">
         <div className="relative min-w-64 flex-1"><Search className="absolute left-2 top-2.5 h-4 w-4 text-slate-500" /><input className="input pl-8" placeholder="Search incidents" value={q} onChange={(e) => setQ(e.target.value)} onKeyDown={(e) => e.key === "Enter" && load()} /></div>
         <select className="input w-36" value={severity} onChange={(e) => setSeverity(e.target.value)}><option value="">Severity</option><option>sev1</option><option>sev2</option><option>sev3</option><option>sev4</option></select>
