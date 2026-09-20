@@ -180,9 +180,3 @@ POST alert -> correlate/create incident -> assign -> start AI investigation
 -> create autonomous task/note -> request approval -> approve severity action
 -> update incident -> write activity/audit -> broadcast realtime event
 ```
-
-### Assignment Status
-
-**Core vertical slice: implemented and runnable.** MongoDB, Redis caching, FastAPI authorization, WebSockets, ARQ background work, seeded data, AI context retrieval, structured deterministic findings, controlled actions, human approval, audit records, Docker startup, and the main views are present.
-
-**Remaining before claiming full assignment completion:** visible incident pagination controls, full Users & Teams mutations and membership editing, related-alert rendering in incident detail, websocket reconnect/full-refetch behavior, AI timeout/invalid-output validation with retry, and a repeatable browser/API demonstration of the complete scenario. These are the highest-value follow-up items because they map directly to the assignment's explicit evaluation criteria.
